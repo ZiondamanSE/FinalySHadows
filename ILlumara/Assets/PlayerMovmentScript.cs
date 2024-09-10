@@ -29,8 +29,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
         // Manage player inputs and movement each frame
         InputManager();
         MovementManager();
@@ -46,6 +44,7 @@ public class PlayerMovementScript : MonoBehaviour
     public void MovementManager()
     {
         // Handle player movement and jumping mechanics
+        
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, movementInput * walkingSpeed, Time.deltaTime * swayMovement), rb.velocity.y);
 
         if (jumpingInput)
@@ -60,6 +59,10 @@ public class PlayerMovementScript : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingForce);
             jumpableSurface = false;
+        }
+        if(rb.velocity.y < jumpingForce /2)
+        {
+            
         }
     }
 
