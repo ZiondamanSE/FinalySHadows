@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -60,9 +61,13 @@ public class PlayerMovementScript : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpingForce);
             jumpableSurface = false;
         }
-        if(rb.velocity.y < jumpingForce /2)
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("non-touchable-object"))
         {
-            
+            Debug.Log("Collided with an enemy!");
         }
     }
 
