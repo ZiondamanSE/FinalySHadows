@@ -17,9 +17,6 @@ public class PlayerMovementScript : MonoBehaviour
     public Vector2 raycastOffset = new Vector2(0, -1);
     public bool raycastDebugger;
 
-    [Header("Death Effects")]
-    public GameObject deathParticles;
-
     private HashSet<Collider2D> safeZones = new HashSet<Collider2D>(); // To track active safe zones
     private bool jumpableSurface;
     private bool jumpingInput;
@@ -29,7 +26,6 @@ public class PlayerMovementScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        deathParticles.SetActive(false);
     }
 
     void FixedUpdate()
@@ -74,7 +70,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (collider.CompareTag("Safe"))
         {
             safeZones.Add(collider);
-            Debug.Log("Entered Safe Zone");
+            Debug.LogWarning("INFO : Entered Safe Zone");
             isInSafeZone = true;
         }
         else if (collider.CompareTag("non-touchable-object"))
@@ -85,7 +81,7 @@ public class PlayerMovementScript : MonoBehaviour
             }
             else
             {
-                Debug.Log("Collided with non-touchable object but in safe zone");
+                Debug.LogWarning("INFO : Collided with non-touchable object but in safe zone");
             }
         }
     }
@@ -95,12 +91,12 @@ public class PlayerMovementScript : MonoBehaviour
         if (collider.CompareTag("Safe"))
         {
             safeZones.Remove(collider);
-            Debug.Log("Exited Safe Zone");
+            Debug.LogWarning("INFO : Exited Safe Zone");
 
             // Check if all safe zones are exited
             if (safeZones.Count == 0)
             {
-                Debug.Log("Player is no longer in any safe zone.");
+                Debug.LogWarning("INFO : Player is no longer in any safe zone.");
                 isInSafeZone = false;
             }
         }
@@ -108,10 +104,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void HandleDeath()
     {
-        Debug.Log("Player has died!");
+        Debug.LogWarning("INFO : Player has died!");
         gameObject.SetActive(false);
-        deathParticles.transform.position = transform.position;
-        deathParticles.SetActive(true);
     }
 
     private void OnDrawGizmos()
