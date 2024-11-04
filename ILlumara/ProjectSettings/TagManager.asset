@@ -8,6 +8,7 @@ TagManager:
   - non-touchable-object
   - Safe
   - MoveCam
+  - Box
   layers:
   - Default
   - TransparentFX

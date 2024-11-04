@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class cameraMovment : MonoBehaviour
 {
-    [SerializeField] private triggerSystem ts; // Make sure this is assigned or present on the GameObject
+    public LevelTrigger lt; // Make sure this is assigned or present on the GameObject
 
     public Vector2 MaxCamMove;
     public float cam_m_s;
@@ -18,8 +18,8 @@ public class cameraMovment : MonoBehaviour
     bool stepping_can;
     void Awake()
     {
-        if (ts == null)
-            ts = GetComponent<triggerSystem>();
+        if (lt == null)
+            lt = GetComponent<LevelTrigger>();
 
         stepping_can = true;
     }
@@ -27,34 +27,28 @@ public class cameraMovment : MonoBehaviour
     void cameraSystem()
     {
         // Null check before accessing ts
-        if (ts.cameraStepping == -1)
+        if (lt.movement == -1)
             m_up = false;
             //Debug.Log($"DEBUG : Camera is moving : {m_up}");
 
 
-        else if (ts.cameraStepping == 1)
+        else if (lt.movement == 1)
             m_up = true;
             //Debug.Log($"DEBUG : Camera is moving : {m_up}");
     }
 
     void Update()
     {
-        if(ts.m_Cam == true)
+        if(lt.Pass == true)
         {
             cameraSystem();
             if (stepping_can == true)
                 MovmentPos();
         }
-
-        if (MaxCamMove.x > 0 || MaxCamMove.y > 0)
+        if (lt.Pass == false) // so i made fresh spegetiy code that is 100% not needed
         {
-            if (ts.m_Cam == false)
-            {
-                OnCall();
-            }
+            OnCall();
         }
-        else
-            Debug.LogError($"ERROR : Out of movment limit : x = {MaxCamMove.x}, y = {MaxCamMove.y}.");
     }
 
     void OnCall()
@@ -84,6 +78,7 @@ public class cameraMovment : MonoBehaviour
             stepping_can = false;
             MaxCamMove.x = MaxCamMove.x - 1;
             MaxCamMove.y = MaxCamMove.y + 1;
+            
         }
         else if (!m_up)
         {
@@ -92,6 +87,7 @@ public class cameraMovment : MonoBehaviour
             stepping_can = false;
             MaxCamMove.y = MaxCamMove.y - 1;
             MaxCamMove.x = MaxCamMove.x + 1;
+;
         }
     }
 }

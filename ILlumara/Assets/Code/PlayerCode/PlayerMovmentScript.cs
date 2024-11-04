@@ -20,6 +20,7 @@ public class PlayerMovementScript : MonoBehaviour
     private HashSet<Collider2D> safeZones = new HashSet<Collider2D>(); // To track active safe zones
     private bool jumpableSurface;
     private bool jumpingInput;
+    [HideInInspector] public bool pickupInput;
     private float movementInput;
     bool isInSafeZone;
 
@@ -44,6 +45,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         movementInput = Input.GetAxisRaw("Horizontal");
         jumpingInput = Input.GetKey(KeyCode.Space);
+        pickupInput = Input.GetKey(KeyCode.E);
     }
 
     void MovementManager()
@@ -51,7 +53,7 @@ public class PlayerMovementScript : MonoBehaviour
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, movementInput * walkingSpeed, Time.deltaTime * swayMovement), rb.velocity.y);
 
         if (jumpingInput)
-        {
+        { // so when the gay ray hits the normal man he become puddel of bupe.
             RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)raycastOffset, Vector2.down, rayLength);
 
             if (hit.collider != null && hit.collider.CompareTag("Ground"))
