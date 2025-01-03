@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+    [SerializeField] LevelTrans levelTrans;
     private Rigidbody2D rb;
 
     [Header("Player Movement Properties")]
@@ -27,6 +28,9 @@ public class PlayerMovementScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if(levelTrans == null)
+            levelTrans = GetComponent<LevelTrans>();
     }
 
     void FixedUpdate()
@@ -107,8 +111,19 @@ public class PlayerMovementScript : MonoBehaviour
     private void HandleDeath()
     {
         Debug.LogWarning("INFO : Player has died!");
+        Debug.LogWarning("INFO : Calling Restart_Game");
+        if (levelTrans != null)
+        {
+            levelTrans.StartCoroutine(levelTrans.Restart_Game());
+        }
+        else
+        {
+            Debug.LogError("ERROR: levelTrans reference is missing!");
+        }
         gameObject.SetActive(false);
     }
+
+
 
     private void OnDrawGizmos()
     {

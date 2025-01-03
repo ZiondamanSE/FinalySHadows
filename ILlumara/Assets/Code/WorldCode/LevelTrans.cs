@@ -23,6 +23,23 @@ public class LevelTrans : MonoBehaviour
         }
     }
 
+    public IEnumerator Restart_Game()
+    {
+        float Elapsedtime = 0;
+        float Duriashon = 1;
+
+        while (Elapsedtime < Duriashon)
+        {
+            Color imge_Color = ip.color;
+            imge_Color.a = Mathf.Lerp(0f, 1f, Elapsedtime / Duriashon);
+            ip.color = imge_Color;
+            Elapsedtime += Time.fixedDeltaTime;
+            yield return null;
+        }
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
     IEnumerator End_Fade()
     {
         float Elapsedtime = 0;
