@@ -11,12 +11,15 @@ public class ButtonMechanics : MonoBehaviour
 
     public float ray_Distens;
     public Vector2 ray_Offset;
+
+    public GameObject niggatron;
     
     public bool ray_Found_Box;
 
     private void Awake()
     {
         ray_Found_Box = false;
+        niggatron.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,6 +28,10 @@ public class ButtonMechanics : MonoBehaviour
         Raycast_Beam();
         Raycast_Cold_Detector();
         Debug.Log($"DEBUG : Is Box Found = {ray_Found_Box}");
+
+
+        if (ray_Found_Box)
+            niggatron.SetActive(true);
     }
 
     public void Raycast_Beam()
