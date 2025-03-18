@@ -1712,7 +1712,7 @@ MonoBehaviour:
   jumpingForce: 15
   swayMovement: 7
   rayLength: 0.03
-  raycastOffset: {x: 0, y: -0.6}
+  raycastOffset: {x: 0, y: -0.8}
   raycastDebugger: 0
   pickupInput: 0
 --- !u!212 &889294086

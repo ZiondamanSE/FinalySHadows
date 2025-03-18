@@ -68,9 +68,7 @@ public class LevelTrans : MonoBehaviour
             ip.color = imge_Color;
             Elapsedtime += Time.fixedDeltaTime;
             yield return null;
-            Time.timeScale = Mathf.Lerp(1f, 0f, Elapsedtime / Duriashon);
         }
-        Time.timeScale = 1f; 
         
     }
 }
